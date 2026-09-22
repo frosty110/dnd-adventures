@@ -33,7 +33,7 @@ function usePingPong(
     let drawRaf = 0;
     let lastCapTs = 0;
 
-    const MAX_FRAMES = 120;
+    const MAX_FRAMES = 60;
 
     /* Phase 1 — capture frames while video plays forward natively */
     const captureLoop = (ts: number) => {

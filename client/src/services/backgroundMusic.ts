@@ -1,7 +1,9 @@
 // Background music player — mood-aware with crossfade and TTS ducking.
 
-import { pushError } from './errorStore';
-import { type SceneMood, VALID_MOODS } from '@ai-dm/shared-types';
+import { authHeaders } from './auth';
+import { pollForMedia } from './mediaPoller';
+import { API_BASE } from './apiBase';
+import { type SceneMood, VALID_MOODS } from '@dnd-adventures/shared-types';
 
 const DEFAULT_VOLUME = 0.12;
 const DUCK_VOLUME = 0.03;
@@ -38,9 +40,6 @@ let crossfadeOldTrack: HTMLAudioElement | null = null;
 // Ducking animation
 let duckRaf: number | null = null;
 
-// Polling state per mood
-const pollCounts = new Map<SceneMood, number>();
-const retryCounts = new Map<SceneMood, number>();
 type Listener = () => void;
 const listeners = new Set<Listener>();
 
@@ -78,77 +77,31 @@ function animateVolume(
   return requestAnimationFrame(step);
 }
 
-function getPollDelay(pollCount: number): number {
-  return Math.min(BACKOFF_BASE_MS * Math.pow(2, pollCount), BACKOFF_CAP_MS);
-}
-
 // --- Fetch mood audio ---
 async function fetchMoodAudio(mood: SceneMood, gen: number): Promise<string | null> {
-  if (gen !== generation) return null; // stale — music was stopped/reset
+  if (gen !== generation) return null;
   if (moodBlobUrls.has(mood)) return moodBlobUrls.get(mood)!;
-  if (fetchingMoods.has(mood)) return null; // already fetching
+  if (fetchingMoods.has(mood)) return null;
 
   fetchingMoods.add(mood);
-  const polls = pollCounts.get(mood) ?? 0;
-  const retries = retryCounts.get(mood) ?? 0;
-
   try {
-    const res = await fetch(`/api/music?mood=${mood}`);
-    if (gen !== generation) { fetchingMoods.delete(mood); return null; }
-
-    if (res.status === 202) {
-      pollCounts.set(mood, polls + 1);
-      if (polls + 1 > MAX_POLLS) {
-        console.warn(`[music] max polls for ${mood} — giving up`);
-        pushError("Music", `Music generation timed out for "${mood}" mood`);
-        fetchingMoods.delete(mood);
-        return null;
-      }
-
-      // Initial delay on first 202 (skip the guaranteed-not-ready window),
-      // then exponential backoff on subsequent polls
-      const delay = polls === 0 ? INITIAL_POLL_DELAY_MS : getPollDelay(polls);
-
-      return new Promise((resolve) => {
-        setTimeout(async () => {
-          if (gen !== generation) { fetchingMoods.delete(mood); resolve(null); return; }
-          fetchingMoods.delete(mood);
-          resolve(await fetchMoodAudio(mood, gen));
-        }, delay);
-      });
-    }
-
-    if (!res.ok) {
-      retryCounts.set(mood, retries + 1);
-      if (retries + 1 <= MAX_RETRIES) {
-        console.warn(`[music] ${mood} error: ${res.status}, retry ${retries + 1}/${MAX_RETRIES}`);
-        return new Promise((resolve) => {
-          setTimeout(async () => {
-            if (gen !== generation) { fetchingMoods.delete(mood); resolve(null); return; }
-            fetchingMoods.delete(mood);
-            resolve(await fetchMoodAudio(mood, gen));
-          }, RETRY_INTERVAL_MS);
-        });
-      }
-      console.warn(`[music] ${mood} max retries reached`);
-      pushError("Music", `Failed to load "${mood}" music after ${MAX_RETRIES} retries`);
-      fetchingMoods.delete(mood);
-      return null;
-    }
-
-    const blob = await res.blob();
-    if (gen !== generation) { fetchingMoods.delete(mood); return null; }
+    const blob = await pollForMedia({
+      url: `${API_BASE}/api/music?mood=${mood}`,
+      label: "Music",
+      initialPollDelayMs: INITIAL_POLL_DELAY_MS,
+      backoffBaseMs: BACKOFF_BASE_MS,
+      backoffCapMs: BACKOFF_CAP_MS,
+      maxPolls: MAX_POLLS,
+      retryIntervalMs: RETRY_INTERVAL_MS,
+      maxRetries: MAX_RETRIES,
+      isStale: () => gen !== generation,
+    });
+    if (!blob || gen !== generation) return null;
     const url = URL.createObjectURL(blob);
     moodBlobUrls.set(mood, url);
-    pollCounts.delete(mood);
-    retryCounts.delete(mood);
-    fetchingMoods.delete(mood);
     return url;
-  } catch (err) {
-    console.warn(`[music] fetch ${mood} failed:`, err);
-    pushError("Music", `Network error loading "${mood}" music`);
+  } finally {
     fetchingMoods.delete(mood);
-    return null;
   }
 }
 
@@ -249,7 +202,7 @@ export async function startRandomMusic() {
 
   const gen = generation;
   try {
-    const res = await fetch("/api/music/random");
+    const res = await fetch(`${API_BASE}/api/music/random`, { headers: authHeaders() });
     if (!res.ok || gen !== generation) return;
 
     const blob = await res.blob();
@@ -372,8 +325,6 @@ export function stopBackgroundMusic() {
   isDucked = false;
   isIntroMusic = false;
   fetchingMoods.clear();
-  pollCounts.clear();
-  retryCounts.clear();
   // Revoke all cached blob URLs to prevent memory leaks
   for (const url of moodBlobUrls.values()) {
     URL.revokeObjectURL(url);
