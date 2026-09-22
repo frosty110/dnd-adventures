@@ -9,7 +9,7 @@ import {
   BEDROCK_HAIKU_OUTPUT_PER_TOKEN,
   type ChatMessage,
   type BedrockResult,
-} from "@ai-dm/shared-types";
+} from "@dnd-adventures/shared-types";
 import { DM_SYSTEM_PROMPT } from "./promptBuilder.js";
 
 // Re-export prompt content for backward compatibility — callers importing from

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { setAuthTokens } from '../services/auth';
+import { API_BASE } from '../services/apiBase';
 
 interface LoginFormProps {
   onSuccess: () => void;
@@ -19,7 +20,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
     setError('');
     setIsLoading(true);
 
-    const endpoint = mode === 'login' ? '/api/auth/login' : '/api/auth/register';
+    const endpoint = mode === 'login' ? `${API_BASE}/api/auth/login` : `${API_BASE}/api/auth/register`;
 
     try {
       const res = await fetch(endpoint, {
@@ -69,7 +70,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           className="font-cinzel font-bold text-3xl tracking-widest text-center mb-2"
           style={{ color: 'var(--color-dm-gold)', textShadow: '0 0 12px oklch(0.75 0.15 55 / 0.6)' }}
         >
-          AI Dungeon Master
+          D&D Adventures
         </h1>
         <p className="font-fell text-parchment/60 text-center mb-8 text-lg">
           {mode === 'login' ? 'Enter your realm' : 'Create your legend'}

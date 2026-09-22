@@ -35,6 +35,6 @@ Use this workflow for Bedrock request/response and prompt execution changes.
 
 ## Verification checklist
 
-1. Run `npx tsc --noEmit -p server` after server-side changes.
-2. Run `npm run dev` and execute the scripted 3-turn flow.
+1. Run `yarn tsc --noEmit -p server` after server-side changes.
+2. Run `yarn dev` and execute the scripted 3-turn flow.
 3. Confirm timeout and cancellation paths are observable and non-crashing.

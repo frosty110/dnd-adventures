@@ -1,0 +1,8 @@
+{
+  "buildCommand": "yarn workspace @dnd-adventures/shared-types build && yarn workspace client build",
+  "outputDirectory": "client/dist",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

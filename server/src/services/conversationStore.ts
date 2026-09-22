@@ -2,7 +2,7 @@ import crypto from "crypto";
 import { z } from "zod";
 import { redisClient, isRedisAvailable } from "./redis.js";
 import { logEvent } from "./logger.js";
-import type { ChatMessage } from "@ai-dm/shared-types";
+import type { ChatMessage } from "@dnd-adventures/shared-types";
 
 export type { ChatMessage };
 
@@ -39,6 +39,9 @@ export class ConversationOwnershipError extends Error {
 
 // Conversations expire after 7 days idle (refresh on every access)
 const CONVERSATION_TTL_SECONDS = 7 * 24 * 60 * 60;
+
+/** Number of recent turns sent to Bedrock per request (matches getWindowedHistory default). */
+export const HISTORY_WINDOW_SIZE = 12;
 
 function redisKey(conversationId: string): string {
   return `conv:${conversationId}`;

@@ -1,4 +1,4 @@
-import type { SceneId } from "@ai-dm/shared-types";
+import type { SceneId } from "@dnd-adventures/shared-types";
 
 /**
  * MiniMax video generation prompts keyed by scene ID.

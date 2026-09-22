@@ -398,10 +398,10 @@ The gold/blood/parchment palette used in navigation chrome does not create color
 
 After any UI change:
 
-1. Run `npm run dev` and exercise the full flow: class select, adventure start with TTS, 2 chat turns, 1 dice roll.
+1. Run `yarn dev` and exercise the full flow: class select, adventure start with TTS, 2 chat turns, 1 dice roll.
 2. Confirm all text is readable at 100% and 150% browser zoom.
 3. Confirm buttons are reachable and activatable via Tab + Enter keyboard navigation.
 4. Check that no `text-white`, `bg-white`, or default-blue link colors appear in the changed components.
 5. Confirm that DM bubble and player bubble are still visually distinct in alignment, font, and color.
 6. If new animations were added, confirm they are covered by a `prefers-reduced-motion` suppression rule.
-7. Run `npx tsc --noEmit -p client` to confirm no TypeScript errors in changed components.
+7. Run `yarn tsc --noEmit -p client` to confirm no TypeScript errors in changed components.

@@ -4,7 +4,7 @@ import { config } from "../services/config.js";
 import { logEvent } from "../services/logger.js";
 import { getOrCreateEntry, startGeneration, tryLoadFromS3, getVideoBuffer, hasVideoBuffer, buildVideoS3Key } from "../services/videoGenerator.js";
 import { getPresignedUrl } from "../services/mediaCache.js";
-import { type SceneId, VALID_SCENES } from "@ai-dm/shared-types";
+import { type SceneId, VALID_SCENES } from "@dnd-adventures/shared-types";
 
 const router = Router();
 

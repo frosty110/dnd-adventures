@@ -1,6 +1,6 @@
 /**
  * Standalone Bedrock smoke test — no server required.
- * Run: npm run test:bedrock --workspace=server
+ * Run: yarn workspace server test:bedrock
  *
  * Verifies:
  *   1. AWS credentials are valid

@@ -2,7 +2,7 @@ import { Router } from "express";
 import { config } from "../services/config.js";
 import { logEvent } from "../services/logger.js";
 import { getMusicForMood, getRandomMusic, getMusicCacheStats, VALID_MOODS } from "../services/musicService.js";
-import { type SceneMood } from "@ai-dm/shared-types";
+import { type SceneMood } from "@dnd-adventures/shared-types";
 
 export { getMusicCacheStats };
 

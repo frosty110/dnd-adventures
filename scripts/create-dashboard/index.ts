@@ -2,7 +2,7 @@
 // The trace_stream widget requires at least one span from the service to have been emitted
 // before the dashboard will show live data. Run the 3-turn demo flow first, then run this script.
 //
-// Usage: DD_API_KEY=<api-key> DD_APP_KEY=<app-key> npm run create-dashboard
+// Usage: DD_API_KEY=<api-key> DD_APP_KEY=<app-key> yarn create-dashboard
 //        DD_DASHBOARD_ID=<id> to update an existing dashboard
 // DD_APP_KEY is a Datadog Application Key — create one at:
 //   Datadog > Organization Settings > Application Keys > New Key

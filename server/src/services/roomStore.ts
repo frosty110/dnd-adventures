@@ -1,5 +1,5 @@
 import { customAlphabet } from "nanoid";
-import type { RoomPhase, RoomStatePayload, PlayerPayload } from "@ai-dm/shared-types";
+import type { RoomPhase, RoomStatePayload, PlayerPayload } from "@dnd-adventures/shared-types";
 
 export type { RoomPhase };
 

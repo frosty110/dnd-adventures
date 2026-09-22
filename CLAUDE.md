@@ -1,17 +1,13 @@
 # AI Assistant Context (Claude, Codex, Kiro)
 
-This is the canonical shared context file for AI coding agents in this repo.
-
-Compatibility links:
-- `CLAUDE.md` (Anthropic Claude Code)
-- `AGENTS.md` (OpenAI Codex and Kiro)
-- `agent.md` (local alias requested by team)
+This is a Yarn only package - do not use npm.
 
 ## Operating Mode
 
-This is a community product targeting ~1000 concurrent users. Balance speed with reliability.
+This is a community product.
 
-- Execute plans efficiently, but flag genuine reliability or scalability concerns that affect 1000 users.
+- Execute plans efficiently, but flag genuine reliability or scalability concerns.
+- This product is targeting a scale of 10-100 concurrent users
 - Write production-quality code: proper error handling, input validation, and graceful degradation.
 - Don't over-engineer for 100K+ scale, but do build for real concurrent usage.
 - Cosmetic warnings (dd-trace noise, deprecation notices) are not problems. Ignore them.
@@ -19,7 +15,7 @@ This is a community product targeting ~1000 concurrent users. Balance speed with
 ## Project Snapshot
 
 - Name: D&D Adventures
-- Goal: A community-facing D&D Adventures game supporting ~1000 concurrent players with full Datadog LLM observability.
+- Goal: A community-facing D&D Adventures game supporting ~100 concurrent players with full Datadog LLM observability.
 - Stack: React frontend, Node.js/Express backend, AWS Bedrock (Claude), Neo4j, Datadog, MiniMax TTS.
 
 ## Current Scope

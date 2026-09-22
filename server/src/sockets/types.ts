@@ -8,4 +8,4 @@ export type {
   ServerToClientEvents,
   ClientToServerEvents,
   SocketData,
-} from "@ai-dm/shared-types";
+} from "@dnd-adventures/shared-types";

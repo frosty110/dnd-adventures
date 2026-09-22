@@ -1,3 +1,5 @@
+import { API_BASE } from './apiBase';
+
 let _token: string | null = null;
 let _refreshToken: string | null = null;
 let _username: string | null = null;
@@ -36,7 +38,7 @@ export function authHeaders(): HeadersInit {
 export async function refreshAccessToken(): Promise<boolean> {
   if (!_refreshToken) return false;
   try {
-    const res = await fetch('/api/auth/refresh', {
+    const res = await fetch(`${API_BASE}/api/auth/refresh`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ refreshToken: _refreshToken }),

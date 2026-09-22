@@ -35,6 +35,6 @@ Use this workflow when modifying retrieval logic and lore prompt injection.
 
 ## Verification checklist
 
-1. Run `npx tsc --noEmit -p server` after server-side retrieval changes.
-2. Run `npm run dev` and confirm chat still works with and without Neo4j availability.
+1. Run `yarn tsc --noEmit -p server` after server-side retrieval changes.
+2. Run `yarn dev` and confirm chat still works with and without Neo4j availability.
 3. Confirm lore stays concise and relevant to the latest turn.

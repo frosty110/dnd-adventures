@@ -30,7 +30,7 @@ A production-quality AI-powered Dungeon Master for tabletop D&D, serving ~1000 c
 ### Prerequisites
 
 - Node.js 22+
-- npm 10+
+- Yarn 1.22+
 - AWS account with Bedrock Claude model access enabled
 - Neo4j AuraDB instance (optional -- degrades gracefully)
 - MiniMax API key (optional -- text-only mode without it)
@@ -41,7 +41,7 @@ A production-quality AI-powered Dungeon Master for tabletop D&D, serving ~1000 c
 ```bash
 git clone <repo-url>
 cd awsHackathon
-npm install
+yarn install
 ```
 
 ### Environment Setup
@@ -67,7 +67,7 @@ See [Developer Guide](docs/DEVELOPER-GUIDE.md) for the full environment variable
 
 ```bash
 # Start both client and server concurrently
-npm run dev
+yarn dev
 ```
 
 - Frontend: http://localhost:5173
@@ -76,7 +76,7 @@ npm run dev
 ### Seed the Knowledge Graph (optional)
 
 ```bash
-npm run seed
+yarn seed
 ```
 
 ## Project Structure
@@ -136,9 +136,9 @@ Live dashboards:
 ### Creating / Updating the Dashboard
 
 ```bash
-npm run create-dashboard
+yarn create-dashboard
 # Or update existing:
-DD_DASHBOARD_ID=agm-v77-h47 npm run create-dashboard
+DD_DASHBOARD_ID=agm-v77-h47 yarn create-dashboard
 ```
 
 ### Key Tracing Config

@@ -21,6 +21,9 @@ export type { ClientToServerEvents, ServerToClientEvents, SocketData };
 // Module-level io instance — set once during server init, used by route handlers
 let io: Server<ClientToServerEvents, ServerToClientEvents, Record<string, never>, SocketData>;
 
+// Redis subscriber client — stored for graceful shutdown cleanup
+let subClient: ReturnType<typeof redisClient.duplicate> | null = null;
+
 // ─── H2: Per-socket O(1) fixed-window rate limiter ───────────────────────────
 interface RateCounter {
   count: number;
@@ -78,7 +81,7 @@ export async function initSocketIO(
   if (isRedisAvailable()) {
     // Redis Pub/Sub requires a dedicated subscriber connection — duplicate() creates one
     // without sharing the pub client's connection state (see research pitfall #6)
-    const subClient = redisClient.duplicate();
+    subClient = redisClient.duplicate();
     await subClient.connect();
     io.adapter(createAdapter(redisClient, subClient));
     logEvent("info", "socketio.redis_adapter_attached", {});
@@ -137,3 +140,11 @@ export async function initSocketIO(
 }
 
 export { io };
+
+/** Disconnect the Redis subscriber used by the Socket.IO adapter. */
+export async function cleanupSocketSubscriber(): Promise<void> {
+  if (subClient) {
+    await subClient.quit();
+    subClient = null;
+  }
+}

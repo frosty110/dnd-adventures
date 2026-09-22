@@ -1,4 +1,4 @@
-import { type SceneMood, VALID_MOODS } from "@ai-dm/shared-types";
+import { type SceneMood, VALID_MOODS } from "@dnd-adventures/shared-types";
 
 /**
  * Creates a stateful mood detector for streaming text chunks.

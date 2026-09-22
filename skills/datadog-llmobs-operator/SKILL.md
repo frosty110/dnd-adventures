@@ -35,7 +35,7 @@ Use this workflow when implementing or verifying LLM observability coverage.
 
 ## Verification checklist
 
-1. Start stack with `npm run dev`.
+1. Start stack with `yarn dev`.
 2. Execute the 3-turn demo flow end-to-end.
 3. Confirm traces show Bedrock spans and parent/child relationships.
 4. Confirm recoverable failures still produce observable error signals.

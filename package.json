@@ -1,5 +1,5 @@
 {
-  "name": "aws-hackathon",
+  "name": "dnd-adventures",
   "private": true,
   "workspaces": [
     "packages/*",
@@ -7,12 +7,12 @@
     "server"
   ],
   "scripts": {
-    "dev": "concurrently --names CLIENT,SERVER --prefix-colors cyan,yellow \"npm run dev -w client\" \"npm run dev -w server\"",
-    "build": "npm run build -w client && npm run build -w server",
-    "seed": "npx tsx data/seed.ts",
-    "generate-audio": "tsx scripts/generate-opening-audio.ts",
-    "create-dashboard": "npx tsx --env-file=.env scripts/create-dashboard/index.ts",
-    "prewarm:phrases": "tsx --env-file=.env scripts/prewarm-phrases.ts"
+    "dev": "concurrently --names CLIENT,SERVER --prefix-colors cyan,yellow \"yarn workspace client dev\" \"yarn workspace server dev\"",
+    "build": "yarn workspace @dnd-adventures/shared-types build && yarn workspace client build && yarn workspace server build",
+    "seed": "yarn tsx data/seed.ts",
+    "generate-audio": "yarn tsx scripts/generate-opening-audio.ts",
+    "create-dashboard": "yarn tsx --env-file=.env scripts/create-dashboard/index.ts",
+    "prewarm:phrases": "yarn tsx --env-file=.env scripts/prewarm-phrases.ts"
   },
   "devDependencies": {
     "concurrently": "^9.2.1",

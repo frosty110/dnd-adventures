@@ -1,11 +1,12 @@
 import { io, type Socket } from 'socket.io-client';
 import { getAuthToken } from './auth';
 
-// Single Socket.IO client instance — connect only when entering multiplayer mode.
-// No URL specified: Vite proxy routes /socket.io to the backend server,
-// so using io() with no URL defaults to the current page origin.
-// The auth callback reads the token at connection time (not stale from module load).
-export const socket: Socket = io({
+// Socket.IO URL:
+// - Dev: undefined → defaults to current page origin (Vite proxy handles /socket.io)
+// - Production: full backend URL (e.g. https://ai-dm-api.duckdns.org)
+const SOCKET_URL: string | undefined = import.meta.env.VITE_API_URL || undefined;
+
+export const socket: Socket = io(SOCKET_URL, {
   autoConnect: false,
   auth: (cb) => { cb({ token: getAuthToken() }); },
 });

@@ -1,7 +1,7 @@
 // Background music player — mood-aware with crossfade and TTS ducking.
 
 import { pushError } from './errorStore';
-import { type SceneMood, VALID_MOODS } from '@ai-dm/shared-types';
+import { type SceneMood, VALID_MOODS } from '@dnd-adventures/shared-types';
 
 const DEFAULT_VOLUME = 0.12;
 const DUCK_VOLUME = 0.03;

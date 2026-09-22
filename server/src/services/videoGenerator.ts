@@ -4,7 +4,7 @@ import { config } from "./config.js";
 import { logEvent } from "./logger.js";
 import { buildKey, get as s3Get, put as s3Put } from "./mediaCache.js";
 import { recordVideoUsage } from "./usageTracker.js";
-import type { SceneId } from "@ai-dm/shared-types";
+import type { SceneId } from "@dnd-adventures/shared-types";
 import { SCENE_PROMPTS } from "../content/scenePrompts.js";
 
 interface SceneCacheEntry {

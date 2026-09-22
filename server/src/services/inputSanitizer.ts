@@ -2,7 +2,7 @@
  * Shared input sanitization for user-facing text inputs.
  * Strips prompt injection patterns, control characters, and enforces length limits.
  */
-import { CHARACTER_CLASS_IDS } from '@ai-dm/shared-types';
+import { CHARACTER_CLASS_IDS } from '@dnd-adventures/shared-types';
 
 // Patterns that could be used for Bedrock/Claude template injection,
 // including XML-like role confusion tags that Claude interprets as special tokens.

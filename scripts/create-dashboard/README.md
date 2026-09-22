@@ -6,10 +6,10 @@ Programmatic Datadog dashboard creation via the REST API. Produces a single orde
 
 ```sh
 # Create a new dashboard
-DD_API_KEY=<key> DD_APP_KEY=<app-key> npm run create-dashboard
+DD_API_KEY=<key> DD_APP_KEY=<app-key> yarn create-dashboard
 
 # Update an existing dashboard
-DD_DASHBOARD_ID=<id> DD_API_KEY=<key> DD_APP_KEY=<app-key> npm run create-dashboard
+DD_DASHBOARD_ID=<id> DD_API_KEY=<key> DD_APP_KEY=<app-key> yarn create-dashboard
 ```
 
 > Run this script **after** generating real trace data (e.g. a 3-turn demo flow) so that stream-based widgets populate correctly.

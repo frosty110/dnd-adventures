@@ -5,7 +5,7 @@ import { logEvent } from "./logger.js";
 import { get as s3Get, put as s3Put, listKeys } from "./mediaCache.js";
 import { recordMusicUsage } from "./usageTracker.js";
 import { randomUUID } from "node:crypto";
-import { type SceneMood, VALID_MOODS } from "@ai-dm/shared-types";
+import { type SceneMood, VALID_MOODS } from "@dnd-adventures/shared-types";
 
 export type { SceneMood };
 export { VALID_MOODS };

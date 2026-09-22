@@ -3,8 +3,8 @@
 Programmatic Datadog dashboard creation/update via the REST API. Run from project root:
 
 ```sh
-DD_API_KEY=<key> DD_APP_KEY=<app-key> npm run create-dashboard          # create new
-DD_DASHBOARD_ID=<id> DD_API_KEY=<key> DD_APP_KEY=<app-key> npm run create-dashboard  # update existing
+DD_API_KEY=<key> DD_APP_KEY=<app-key> yarn create-dashboard          # create new
+DD_DASHBOARD_ID=<id> DD_API_KEY=<key> DD_APP_KEY=<app-key> yarn create-dashboard  # update existing
 ```
 
 ## Directory Structure

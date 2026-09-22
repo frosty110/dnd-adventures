@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { playAudio } from '../services/audioController';
 import { authHeaders } from '../services/auth';
+import { API_BASE } from '../services/apiBase';
 
 export interface NarrateResult {
   text: string;
@@ -25,7 +26,7 @@ export function AudioPlayer({ onAdventureStart, characterClass, pronouns }: Audi
     setStatus('loading');
 
     try {
-      const response = await fetch('/api/narrate', {
+      const response = await fetch(`${API_BASE}/api/narrate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...authHeaders() },
         body: JSON.stringify({

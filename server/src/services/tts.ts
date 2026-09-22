@@ -17,7 +17,7 @@ import {
   stripTTSTags,
   sanitizeForTTS,
   expandPhrases,
-} from "@ai-dm/shared-types";
+} from "@dnd-adventures/shared-types";
 
 export type { SceneMood, SceneId, CharacterVoice };
 export { extractMood, extractScene, splitVoiceSegments, stripTTSTags, sanitizeForTTS, expandPhrases };

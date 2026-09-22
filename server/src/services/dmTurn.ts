@@ -4,7 +4,7 @@ import { buildLoreContext } from "./rag.js";
 import { queueBedrockCall } from "./bedrockQueue.js";
 import { createMoodStreamDetector } from "./moodStreamDetector.js";
 import { stripTTSTags, extractMood, extractScene, expandPhrases } from "./tts.js";
-import type { ChatMessage } from "@ai-dm/shared-types";
+import type { ChatMessage } from "@dnd-adventures/shared-types";
 
 export interface DmTurnCallbacks {
   onText: (text: string) => void;

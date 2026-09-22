@@ -2,8 +2,8 @@ import tracer from "dd-trace";
 import { logEvent } from "./logger.js";
 import { get as s3Get, put as s3Put } from "./mediaCache.js";
 import { generateMultiVoiceTTS } from "./tts.js";
-import { PHRASE_BANK } from "@ai-dm/shared-types";
-import type { Phrase } from "@ai-dm/shared-types";
+import { PHRASE_BANK } from "@dnd-adventures/shared-types";
+import type { Phrase } from "@dnd-adventures/shared-types";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
